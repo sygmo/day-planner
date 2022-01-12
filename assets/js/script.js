@@ -1,11 +1,3 @@
-fetch("https://api.astronomyapi.com/api/v2/bodies")
-    .then(function (response){
-        return response.json();
-    })
-    .then(function (data) {
-        console.log(data);
-    });
-
 var dayEl = $('#currentDay');
 var containerEl = $('.container');
 
