@@ -1,6 +1,8 @@
 var dayEl = $('#currentDay');
 var containerEl = $('.container');
 
+var savedEvents = [];
+
 // display current day at top of calendar
 dayEl.text(moment().format("dddd, MMMM Do"));
 
@@ -38,12 +40,37 @@ for (var i = 9; i <= 17; i++) {
     // TODO: make button clickable
     var saveBtnEl = $('<button>');
     saveBtnEl.attr('class', 'saveBtn col-1 button');
-    saveBtnEl.html('<img src="assets/images/floppy-disk.png" alt="save button">');
     timeblockEl.append(saveBtnEl);
 
     containerEl.append(timeblockEl);
 }
 
-// click timeblock to enter an event
+// populate calendar with values from localstorage
+savedEvents = JSON.parse(localStorage.getItem("savedEvents"));
+if (savedEvents) {
+    for (var i = 0; i < savedEvents.length; i++) {
+        var item = savedEvents[i];
+        var timeblockEl = $('.'+item.className);
+        timeblockEl[0].firstChild.nextSibling.firstChild.value = item.text;
+    }
+} else {
+    savedEvents = [];
+}
+
+function handleSave(event) {
+    // get time block class name and text value
+    var savedItem = {
+        className: event.target.parentElement.className.slice(0, -4),
+        text: event.target.previousSibling.firstChild.value.trim()
+    };
+
+    savedEvents.push(savedItem);
+
+    // save object to localstorage
+    localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
+}
 
 // click save button to save to local storage
+document.querySelectorAll('.saveBtn').forEach(item => {
+    item.addEventListener('click', handleSave)
+})
