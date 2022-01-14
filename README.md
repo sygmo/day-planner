@@ -7,6 +7,9 @@ For: UT Austin Coding Bootcamp
 Deployed: https://sygmo.github.io/day-planner/
 
 
+![screenshot of app](assets/images/screenshot.png)
+
+
 ## Overview
 This is a simple calendar app, specifically intended for scheduling the work day from 9-5pm. Users may enter events or tasks on any hour and save those inputs with a save button. The hour blocks are colored by time of day - gray for past hours, red for the present hour, and green for future hours.
 
